@@ -1,5 +1,18 @@
 # gpu-health-check
 
+<!--toc:start-->
+- [gpu-health-check](#gpu-health-check)
+  - [Description](#description)
+  - [Physical Inspection](#physical-inspection)
+  - [Installation](#installation)
+  - [Fan Health](#fan-health)
+  - [Stability and Performance](#stability-and-performance)
+    - [Memory](#memory)
+    - [Core Stability](#core-stability)
+    - [Performance](#performance)
+    - [Holistic View](#holistic-view)
+<!--toc:end-->
+
 ## Description
 The following is a checklist of tests, highly inspired by this [video](https://www.youtube.com/watch?v=oRMPp-8IGQw), which can be run in order to assess the health of a recently bought second hand GPU. These tests are relatively quick to perform and should let you assess the quality of the GPU before any return policy windows expire.
 
@@ -27,30 +40,54 @@ Fans are typically the first point of failure and as such it is the first thing 
 > Make sure your fans are synced if that is an option. 
 
 >[!WARNING]
-> Often you will see a mismatch between the fans the software sees and the number of physical fans you see. Most commonly this is the case when there are 3 physical fans but only 2 fans detected. This is useually because multiple fans are being connected to the same fan header via a hub.
+> Often you will see a mismatch between the fans the software detects and the number of physical fans you see. Most commonly this occurs when there are 3 physical fans but only 2 fans detected. This is usually because multiple fans are connected to the same fan header via a hub.
 
-Now with the the logged fan data you can use plotting software of your choice to analyse the data. You are looking for a relatively consistent curve for your set speeds, i.e. no spikes. 
+Now with the logged fan data, you can use plotting software of your choice to analyze the data. You are looking for a relatively consistent curve for your set speeds, i.e., no spikes. 
 
 ## Stability and Performance 
-For all of these test use HWInfo64 to log temperature. 
-Check the Nvidia website to see maximum allowed temperatures, the site will quote the maximum allowed core temperature.
-For the maximum allowed hotspot temperature look up the memory type of the card and see what its maximum allowed value is. For example, GDDR6X memory should be kept under 105 degrees according to the micron spec sheet.
+For all of the following tests run HWiNFO64, as was described in the previous section to log your system's sensor data. These tests will be putting your system throughout fairly demanding workloads and as such this is a good opportunity to evaluate the thermal performance of the card, i.e. whether the card is thermal throttling or reaching unsafe temperatures. Specifically the two temperatures we will be most interested in are the:
+
+* GPU core temperature - This should stay under the rated temperature on your GPU manufacturers website.
+  * For example a 3090 should stay under [93](https://www.nvidia.com/en-gb/geforce/graphics-cards/30-series/rtx-3090-3090ti/) degrees.
+* GPU hot spot - This is usually representative of the temperature at the memory junction and as such should be less than the maximum rated temperature for the VRAM, this can usually be found via the associated micron spec sheet.
+  * For example, GDDR6X is rated up to [95](https://www.micron.com/products/memory/graphics-memory/gddr6x) degrees, although in reality thermal throttling actually happens around 105 degrees for this type of memory.
+
+>[!NOTE]
+> High temperatures primarily affect your GPU in two ways:
+> 1. Performance throttling: Modern GPUs will automatically reduce their clock speeds when approaching their thermal limits to protect themselves. This results in reduced performance.
+> 2. Efficiency reduction: GPUs operate more efficiently at lower temperatures, consuming less power and potentially lasting longer.
+> Therefore, maintaining temperatures well below the maximum rated limits provides better performance and longevity.
+
+>[!warning]
+> While modern GPUs have multiple thermal protection mechanisms, any of the following conditions indicate a serious problem requiring immediate shutdown:
+>
+> * Temperatures exceeding manufacturer-specified maximum limits
+> * Temperatures continuing to rise despite thermal throttling
+> * Unusual temperature spikes or thermal behavior
+> 
+>These conditions could indicate failed thermal protection systems and pose potential safety risks including fire hazards.
 
 ### Memory
-Use gpumeMtest to quickly check the card's memory
-Use OCCTs VRAM test for 1 hour
+* Quick test - [GPUMemTest](https://www.programming4beginners.com/gpumemtest) to quickly check the card's memory.
+* Extensive test - The [OCCT](https://www.ocbase.com/) VRAM test. 
 
 ### Core Stability
-Run OCCTs 3D standard test - it is normal to hear coil whine while performing this test, this is not a concern.
+Run the [OCCT](https://www.ocbase.com/) 3D standard test with error detection.
+
+>[!NOTE] 
+> It is normal to hear coil whine while performing this test; this is not a concern.
 
 ### Performance
-The previous tests are mainly looking for actual faults with the hardware. Assuming the hardware is not faulty, we are now interested in how it is performing relative to how it should.
-For this we can use Superposition, which will give a result that you can compare with to others online with similar systems.
-Beware though, some are competative about this and will be using highly optimised setups, e.g. water cooling etc. with the best CPUs
-You will want to compare it to the median performance for someone with your CPU and GPU combination.
+The previous tests are assessing hardware faults based on the existence of computational errors. Assuming the hardware is not faulty, we are now interested in how it is performing relative to how it should.
 
-### Holistic View
-All the previous tests are quite abstract. A final test would be to play a video game, as this will show artefacts, that a test might struggle to see, but would be very obvious to a human.
-Usr RivaStatistics to get in depth system printouts during your games, it comes bundled with msi afterburner.
-Just tick the show on screen checkbox and tick anything you want to see
+A good test for this is the [Superposition](https://benchmark.unigine.com/superposition) benchmark, which will give you a score that you can compare to others running similar hardware to yourself.
 
+>[!warning]
+> Many users who post their scores online are doing so for competative reasons, trying to see how far they can push their bespoke cooling setup, undervolts, overclocks etc. For the purpose of seeing if you are getting the hardware you expect, it would be wise to compare your performance to the median for similar hardware - skip past the top entries.
+
+### Holistic 
+The previous tests are all quite insular in nature, testing a modular part of the graphics card. As a final holistic test you should run the graphics card through some intense application that uses all facets of the graphics card. A demanding 3D game is a great option for such a test. As a human you will have a much better chance spotting artifacting over an hour long gaming session than a test suite that is trying to detect such phenomenon, that is often card specific.  
+ 
+
+>[!TIP]
+> Use RivaStatistics to get in depth system printouts during your games, it comes bundled with MSI afterburner. Just tick the show on screen checkbox and tick anything you want to see
