@@ -14,10 +14,9 @@ The following are some things to look out for during a first physical inspection
 * Look to see if the card is rusting - This implies the card has been in a humid environment and it is likely this will have an adverse effect on the card's lifespan.
 
 ## Instalation
-Immidiately before installing your new GPU you should run DDU on your system to remove any drivers that may exist on your system for your old GPU. After doing this you should shut your system down and install your new GPU.
+Immediately before installing your new GPU you should run [DDU](https://www.guru3d.com/download/display-driver-uninstaller-download/) on your system to remove any drivers that may exist on your system for your old GPU. After doing this you should shut your system down and install your new GPU. Finally, when you first log onto your system after having installed the GPU, be sure to install the latest version of your GPU drivers.
 
 
-When installing a new GPU run DDU
 
 
 ## Fan test
