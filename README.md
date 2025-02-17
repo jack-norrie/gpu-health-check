@@ -3,7 +3,7 @@
 ## Description
 The following is a checklist of tests, highly inspired by this [video](https://www.youtube.com/watch?v=oRMPp-8IGQw), which can be run in order to assess the health of a recently bought second hand GPU. These tests are relatively quick to perform and should let you assess the quality of the GPU before any return policy windows expire.
 
->[!warning]
+>[!WARNING]
 > This guide is provided for informational purposes only. Given the significant investment GPUs represent, users should exercise their own judgment when making purchasing decisions. While these tests have worked for me personally when evaluating second-hand GPUs, I cannot guarantee their effectiveness in all situations and accept no responsibility for any purchasing decisions made based on this guide.
 
 ## Physical Inspection
@@ -13,19 +13,23 @@ The following are some things to look out for during a first physical inspection
 * Look to see if the heatsink is clogged with dust/obstructions. This can be an indication of how the card was looked after by the previous owner.
 * Look to see if the card is rusting - This implies the card has been in a humid environment and it is likely this will have an adverse effect on the card's lifespan.
 
-## Instalation
+## Installation
 Immediately before installing your new GPU you should run [DDU](https://www.guru3d.com/download/display-driver-uninstaller-download/) on your system to remove any drivers that may exist on your system for your old GPU. After doing this you should shut your system down and install your new GPU. Finally, when you first log onto your system after having installed the GPU, be sure to install the latest version of your GPU drivers.
 
 
+## Fan Health
+Fans are typically the first point of failure and as such it is the first thing we will check. The main thing we want to check is that the fan is able to maintain a set RPM for a prolonged period of time without any spikes, as this would be a sign the fan was dying. The test procedure for this is as follows:
+* Use [HWiNFO64](https://www.hwinfo.com/download/) to log fan speeds.
+* Use MSI afterburner to set a specific fan speed.
+* Set the speed to 50% for 30 minutes and then 100% for another 30 minutes.
 
+>[!TIP]
+> Make sure your fans are synced if that is an option. 
 
-## Fan test
-Fans are the typical first point of failure.
-Use MSI afterburner to set a specific fan speed.
-Use HWInfo64 to log fan speeds
-Run at 50% for 30 minutes and 100% for 30 minutes.
-Make sure your fans are synced if that is an option and do not worry about a mismatch in the number of logged fans and the number of physical fans, sometimes some fans are considerd one fan logically
-When you analyse the resulting data it should be relatively stable, flucuations are fine, but large spikes are not.
+>[!WARNING]
+> Often you will see a mismatch between the fans the software sees and the number of physical fans you see. Most commonly this is the case when there are 3 physical fans but only 2 fans detected. This is useually because multiple fans are being connected to the same fan header via a hub.
+
+Now with the the logged fan data you can use plotting software of your choice to analyse the data. You are looking for a relatively consistent curve for your set speeds, i.e. no spikes. 
 
 ## Stability and Performance 
 For all of these test use HWInfo64 to log temperature. 
