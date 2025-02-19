@@ -73,6 +73,10 @@ def plot_gpu_temperatures(
 
 if __name__ == "__main__":
     for hwinfo64_log_path in Path("data/3090").glob("*.CSV"):
-        plot_gpu_temperatures(
-            hwinfo64_log_path, gpu_temp_cols=None, max_core_temp=93, max_memory_temp=105
-        )
+        if "fan_stability" not in hwinfo64_log_path.stem:
+            plot_gpu_temperatures(
+                hwinfo64_log_path,
+                gpu_temp_cols=None,
+                max_core_temp=93,
+                max_memory_temp=105,
+            )
