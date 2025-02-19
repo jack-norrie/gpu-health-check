@@ -6,8 +6,8 @@ from pathlib import Path
 def plot_gpu_temperatures(
     hw64_log_path,
     gpu_temp_cols: list[str] | None = None,
-    max_core_temp=84,
     max_memory_temp=105,
+    max_core_temp=84,
 ):
     results_path = Path("results") / hw64_log_path.with_suffix(".PNG").relative_to(
         Path("data")
@@ -20,6 +20,12 @@ def plot_gpu_temperatures(
         encoding="cp1252",
         on_bad_lines="skip",
         low_memory=False,
+    )
+
+    thermal_throttle_temp = float(
+        (data["GPU Thermal Limit [°C]"].str.extract(r"(\d+\.?\d*)").astype(float))
+        .min()
+        .iloc[0]
     )
 
     if gpu_temp_cols is None:
@@ -38,20 +44,27 @@ def plot_gpu_temperatures(
 
     data.plot(x="Time", y=gpu_temp_cols)
     plt.axhline(
-        y=84,
+        y=thermal_throttle_temp,
         color="orange",
+        linestyle="--",
+        label=f"Thermal Throttling Temp ({thermal_throttle_temp}°C)",
+    )
+    plt.axhline(
+        y=max_core_temp,
+        color="coral",
         linestyle="--",
         label=f"Max Core Temp ({max_core_temp}°C)",
     )
     plt.axhline(
-        y=105,
+        y=max_memory_temp,
         color="red",
         linestyle="--",
         label=f"Max Memory Temp ({max_memory_temp}°C)",
     )
-
     plt.legend()
     plt.xticks(rotation=45, ha="right")
+    plt.ylabel("Temperatues (°C)")
+    plt.title("GPU Temperatues")
 
     plt.tight_layout()
 
@@ -59,7 +72,7 @@ def plot_gpu_temperatures(
 
 
 if __name__ == "__main__":
-    hwinfo64_log_path = Path("data/3090/gaming_session.CSV")
-    plot_gpu_temperatures(
-        hwinfo64_log_path, gpu_temp_cols=None, max_core_temp=84, max_memory_temp=105
-    )
+    for hwinfo64_log_path in Path("data/3090").glob("*.CSV"):
+        plot_gpu_temperatures(
+            hwinfo64_log_path, gpu_temp_cols=None, max_core_temp=93, max_memory_temp=105
+        )
