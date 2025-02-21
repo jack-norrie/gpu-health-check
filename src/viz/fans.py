@@ -47,6 +47,6 @@ def plot_gpu_fans(
 
 
 if __name__ == "__main__":
-    hwinfo64_log_path = Path("data/3090/fan_stability.CSV")
+    hwinfo64_log_path = Path("data/1080 Ti/fan_stability.CSV")
     plot_gpu_fans(hwinfo64_log_path)
 
