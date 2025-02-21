@@ -2,6 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
 
+from src.config import DATA_DIR
+
 
 def plot_gpu_fans(
     hw64_log_path,
@@ -44,9 +46,3 @@ def plot_gpu_fans(
     plt.tight_layout()
 
     plt.savefig(results_path, dpi=300)
-
-
-if __name__ == "__main__":
-    hwinfo64_log_path = Path("data/1080 Ti/fan_stability.CSV")
-    plot_gpu_fans(hwinfo64_log_path)
-
