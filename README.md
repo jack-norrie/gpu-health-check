@@ -5,13 +5,14 @@
   - [Description](#description)
   - [Procedure](#procedure)
     - [Physical Inspection](#physical-inspection)
-    - [Installation](#installation)
+    - [GPU Installation](#gpu-installation)
     - [Fan Health](#fan-health)
     - [Stability and Performance](#stability-and-performance)
       - [Memory](#memory)
       - [Core Stability](#core-stability)
       - [Performance](#performance)
       - [Holistic](#holistic)
+  - [Usage](#usage)
 <!--toc:end-->
 
 ## Description
