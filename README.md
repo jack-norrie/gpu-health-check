@@ -21,6 +21,8 @@ The following is a checklist of tests, highly inspired by this [video](https://w
 
 >[!WARNING]
 > This guide is provided for informational purposes only. Given the significant investment GPUs represent, users should exercise their own judgment when making purchasing decisions. While these tests have worked for me personally when evaluating second-hand GPUs, I cannot guarantee their effectiveness in all situations and accept no responsibility for any purchasing decisions made based on this guide.
+>
+> While passing these tests is encouraging, it does not guarantee the GPU is completely fault-free. However, failing any test is a clear indication of hardware issues. These tests should be considered as a way to identify problems rather than as absolute proof of perfect functionality.
 
 ## Procedure
 
