@@ -34,14 +34,25 @@ def plot_gpu_fans(
     for col in gpu_fan_cols:
         data[col] = data[col].str.extract(r"(\d+\.?\d*)").astype(float)
 
-    plt.figure(figsize=(12, 6))  # Width: 12 inches, Height: 6 inches
+        # Create a figure with a subplot for each fan
+        fig, axes = plt.subplots(
+            nrows=len(gpu_fan_cols),
+            ncols=1,
+            figsize=(8, 5 * len(gpu_fan_cols)),
+            sharex=True,
+            sharey=True,
+            squeeze=False,
+        )
 
-    data.plot(x="Time", y=gpu_fan_cols)
+        # Plot each fan in its own subplot
+        for i, col in enumerate(gpu_fan_cols):
+            data.plot(x="Time", y=col, ax=axes[i, 0])
+            axes[i, 0].set_ylabel("Fan Speed (RPM)")
+            axes[i, 0].set_title(f"{col}")
+            axes[i, 0].tick_params(axis="x", rotation=45)
+            plt.setp(axes[i, 0].get_xticklabels(), ha="right")
 
-    plt.legend()
-    plt.xticks(rotation=45, ha="right")
-    plt.ylabel("Fan Speed (RPM)")
-    plt.title("GPU Fan Speeds")
+        plt.suptitle("GPU Fan Speeds", y=1.02)
 
     plt.tight_layout()
 
