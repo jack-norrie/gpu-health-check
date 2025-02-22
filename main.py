@@ -18,9 +18,4 @@ if __name__ == "__main__":
         p for p in hwinfo64_log_paths if "fan_stability" not in p.stem
     ]
     for hw64_log_path in hwinfo64_temp_log_paths:
-        plot_gpu_temperatures(
-            hw64_log_path,
-            gpu_temp_cols=None,
-            max_core_temp=91,
-            max_memory_temp=105,
-        )
+        plot_gpu_temperatures(hw64_log_path, gpu_temp_cols=None)
