@@ -60,10 +60,12 @@ Now with the logged fan data, you can use plotting software of your choice to an
 
 For all of the following tests run HWiNFO64, as was described in the previous section to log your system's sensor data. These tests will be putting your system throughout fairly demanding workloads and as such this is a good opportunity to evaluate the thermal performance of the card, i.e. whether the card is thermal throttling or reaching unsafe temperatures. Specifically the two temperatures we will be most interested in are the:
 
-- GPU core temperature - This should stay under the rated temperature on your GPU manufacturers website.
+- GPU core temperature - This should stay under the rated temperature on your GPU manufacturer's website.
   - For example a 3090 should stay under [93](https://www.nvidia.com/en-gb/geforce/graphics-cards/30-series/rtx-3090-3090ti/) degrees.
+- Your card will also have a throttling temperature, which is lower than the core temperature limit. When your card hits this temperature, it will throttle its power consumption to protect itself (i.e., stop itself from hitting its thermal limit). Ideally, you should be operating below the throttling temperature, otherwise your card could theoretically perform better if it had additional thermal headroom and wasn't throttling.
+
 - GPU hot spot - This is usually representative of the temperature at the memory junction and as such should be less than the maximum rated temperature for the VRAM, this can usually be found via the associated micron spec sheet.
-  - For example, GDDR6X is rated up to [95](https://www.micron.com/products/memory/graphics-memory/gddr6x) degrees, although in reality thermal throttling actually happens around 105 degrees for this type of memory.
+  - For example, GDDR6X is rated up to [95](https://www.micron.com/products/memory/graphics-memory/gddr6x).
 
 >[!NOTE]
 > High temperatures primarily affect your GPU in two ways:
