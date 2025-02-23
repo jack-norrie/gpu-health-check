@@ -61,30 +61,36 @@ Now with the logged fan data, you can use plotting software of your choice to an
 
 ### Stability and Performance
 
-For all of the following tests run HWiNFO64, as was described in the previous section to log your system's sensor data. These tests will be putting your system throughout fairly demanding workloads and as such this is a good opportunity to evaluate the thermal performance of the card, i.e. whether the card is thermal throttling or reaching unsafe temperatures. Specifically the two temperatures we will be most interested in are the:
+During stress testing, use HWiNFO64 to monitor three critical temperature readings:
 
-- GPU core temperature - This should stay under the rated temperature on your GPU manufacturer's website.
-  - For example a 3090 should stay under [93](https://www.nvidia.com/en-gb/geforce/graphics-cards/30-series/rtx-3090-3090ti/) degrees.
-- Your card will also have a throttling temperature, which is lower than the core temperature limit. When your card hits this temperature, it will throttle its power consumption to protect itself (i.e., stop itself from hitting its thermal limit). Ideally, you should be operating below the throttling temperature, otherwise your card could theoretically perform better if it had additional thermal headroom and wasn't throttling.
+1. GPU Core Temperature
+   - Must stay under manufacturer's rated limit (e.g., 91°C for GTX 1080 Ti)
+   - Should ideally stay below the throttling temperature for optimal performance (e.g., 84°C for GTX 1080 Ti)
 
-- GPU hot spot - This is usually representative of the temperature at the memory junction and as such should be less than the maximum rated temperature for the VRAM, this can usually be found via the associated micron spec sheet.
-  - For example, GDDR6X is rated up to [95](https://www.micron.com/products/memory/graphics-memory/gddr6x).
+2. GPU Hot Spot Temperature
+   - Typically represents memory junction temperature
+   - Must stay under VRAM specifications (e.g., 95°C for GDDR6X)
+   - Can exceed core temperature limits while remaining safe
+
+The plot below is an example of good thermal performance. All sensors stay below their limits and the GPU core temperature has significant thermal headroom relative to its throttling limit. It should also be noted that the plot below contains the integrated graphics chip's temperatures, i.e. the CPU, this is not important for the purposes of testing the GPU. 
+
+![good_thermals](docs/good_thermals.PNG)
 
 >[!NOTE]
-> High temperatures primarily affect your GPU in two ways:
->
-> 1. Performance throttling: Modern GPUs will automatically reduce their clock speeds when approaching their thermal limits to protect themselves. This results in reduced performance.
-> 2. Efficiency reduction: GPUs operate more efficiently at lower temperatures, consuming less power and potentially lasting longer.
-> Therefore, maintaining temperatures well below the maximum rated limits provides better performance and longevity.
+> High temperatures impact performance in two ways:
+> - Thermal throttling reduces clock speeds
+> - Reduced efficiency and potential longevity
+
+>[!TIP]
+> If you would like to use the plotting code in this repository you can enter your card's thermal thresholds inside the `src/config.py` file. You can find the core limits on the card manufacturer site and the memory limits from a micron spec sheet.
 
 >[!WARNING]
-> While modern GPUs have multiple thermal protection mechanisms, any of the following conditions indicate a serious problem requiring immediate shutdown:
+> Immediately shut down if you observe:
+> - Temperatures exceeding manufacturer limits
+> - Continued temperature rise during throttling
+> - Unusual temperature spikes
 >
-> - Temperatures exceeding manufacturer-specified maximum limits
-> - Temperatures continuing to rise despite thermal throttling
-> - Unusual temperature spikes or thermal behavior
->
->These conditions could indicate failed thermal protection systems and pose potential safety risks including fire hazards.
+> These conditions may indicate failed safety systems and pose fire risks.
 
 #### Memory
 
