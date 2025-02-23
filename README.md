@@ -125,7 +125,7 @@ The previous tests are all quite insular in nature, testing a modular part of th
 
 ## Usage
 
-If you would like to replicate the plots made throughout this repo, you can run the plotting code via the docker app associated with this repo. Simply create a `/data` directory in the root of this repo with your HWiNFO64 logs. Then perform any additional configuration you desire in `src/config.py`. Then run the commands below to make a results directory if it does not already exist, build a docker image, and finally run this docker image.
+If you would like to replicate the plots made throughout this repo, you can run the plotting code using Docker. Simply create a `/data` directory in the root of this repo with your HWiNFO64 logs. Additionally, be sure to name the log file containing the fan stability test `fan_stability.csv`. Then perform any additional configuration you desire in `src/config.py`. Finally, run the commands below to build the Docker image and run a container:
 
 ```bash
 mkdir -p results && \
